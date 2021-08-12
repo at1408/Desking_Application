@@ -1,0 +1,1 @@
+{dbName='iUtXB-db-grads-group-17', userName='iUtXB-group-17', password='bawwqfcdar'}
