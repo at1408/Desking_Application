@@ -3,4 +3,4 @@ steps:
 - id: 'Deploy springboot to App Engine'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'bash'
-  args: ['-c', 'gcloud app deploy --version=app1 app.yml']
+  args: ['-c', 'gcloud app deploy --version=app1 app.yaml']
