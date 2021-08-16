@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import OfficeCard from './OfficeCard';
-import { Typography } from '@material-ui/core';
+import { CircularProgress, Typography } from '@material-ui/core';
+import Config from '../Config';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -10,90 +13,80 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-const CreateBooking = () => {
+const CreateBooking = (props) => {
     const classes = useStyles();
 
-    const dummyOfficeList = [
-        {
-            id: 1,
-            buildingName: "Yerawda",
-            address: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur",
-        },
-        {
-            id: 2,
-            buildingName: "Yerawda",
-            address: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur",
-        },
-        {
-            id: 3,
-            buildingName: "Yerawda",
-            address: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur",
-        },
-        {
-            id: 4,
-            buildingName: "Yerawda",
-            address: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur",
-        },
-        {
-            id: 5,
-            buildingName: "Yerawda",
-            address: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur",
-        },
-        {
-            id: 6,
-            buildingName: "Yerawda",
-            address: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur",
-        },
-    ];
+    const [loading, setLoading] = useState(false);
+    const [buildingList, setBuildingList] = useState([]);
+    const [openToast, setOpenToast] = React.useState(false);
+    
+    const getBuildingData = async () => {
+        setLoading(true);
+        const res = await fetch(`${Config.serverUrl}/desking/buildings`);
+        const buildings = await res.json();
+        setBuildingList(buildings);
+        setLoading(false);
+    }
+
+    const handleToastClick = () => {
+        setOpenToast(true);
+    };
+
+    const handleToastClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenToast(false);
+    };
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+      }
+
+    useEffect(() => {
+        getBuildingData();
+        if (props.history.location.byLogin) handleToastClick()
+    }, []);
 
     return (
         <>
-            <Typography variant="h4" gutterBottom>
-                Recommended
-            </Typography>
-            <div className={classes.root}>
-                <Grid
-                    container
-                    justifyContent="flex-start"
-                    alignItems="center">
-
-                    {
-                        dummyOfficeList.map((item) => (
-                            <Grid item xs={12} sm={4} md={4}>
-                                <OfficeCard
-                                    buildingName={item.buildingName}
-                                    address={item.address}
-                                />
-                            </Grid>
-                        ))
-                    }
-
-                </Grid>
-            </div>
-            <br />
-            <br />
-            <Typography variant="h4" gutterBottom>
-                All Buildings
-            </Typography>
-            <div className={classes.root}>
-                <Grid
-                    container
-                    justifyContent="flex-start"
-                    alignItems="center">
-                    {
-                        dummyOfficeList.map((item) => (
-                            <Grid item xs={12} sm={4} md={4}>
-                                <OfficeCard
-                                    buildingName={item.buildingName}
-                                    address={item.address}
-                                />
-                            </Grid>
-                        ))
-                    }
-                </Grid>
-            </div>
-        </>
+            {
+                loading ? (
+                    <div style = {{ margin: "2em", width: "100%", display: "flex", justifyContent: "center" }}>
+                        <Typography variant="h5" gutterBottom>
+                            <CircularProgress size={20} color="inherit" /> Loading...
+                        </Typography>
+                    </div>
+                ) : (<>
+                    <Typography variant="h4" gutterBottom>
+                        All Buildings
+                    </Typography>
+                    <div className={classes.root}>
+                        <Grid
+                            container
+                            justifyContent="flex-start"
+                            alignItems="center">
+                            {
+                                buildingList.map((item) => (
+                                    <Grid key={item.buildingId} item xs={12} sm={4} md={4}>
+                                        <OfficeCard
+                                            buildingName={item.buildingName}
+                                            buildingId={item.buildingId}
+                                        />
+                                    </Grid>
+                                ))
+                            }
+                        </Grid>
+                    </div>
+                </>)
+            }
+            
+            <Snackbar open={openToast} autoHideDuration={4000} onClose={handleToastClose}>
+                <Alert onClose={handleToastClose} severity="success">
+                Signed In as {JSON.parse(window.localStorage.getItem('user')).fName}!
+                </Alert>
+            </Snackbar>
+            </>
     );
 }
 
