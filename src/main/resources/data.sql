@@ -1,4 +1,4 @@
-USE `iUtXB-db-grads-group-17`;
+USE iUtXB-db-grads-group-17;
 
 TRUNCATE TABLE user;
 TRUNCATE TABLE building;
