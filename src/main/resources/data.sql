@@ -1,4 +1,4 @@
-USE iUtXB-db-grads-group-17;
+USE `iUtXB-db-grads-group-17`;
 
 TRUNCATE TABLE user;
 TRUNCATE TABLE building;
@@ -21,7 +21,7 @@ INSERT INTO user VALUES(7,"shreyas@gmail.com","Shreyas","Kelshikar","User",2);
 INSERT INTO user VALUES(8,"harsh@gmail.com","Harsh","Shelar","User",2);
 INSERT INTO user VALUES(9,"samanvay@gmail.com","Samanvay","Lamba","User",3);
 INSERT INTO user VALUES(10,"anshuman@gmail.com","Anshuman","Tripathi","User",3);
-INSERT INTO USER VALUES(11,"admin@gmail.com","Admin","Rkit","admin",0);
+-- INSERT INTO USER VALUES(11,"admin@gmail.com","Admin","Rkit","admin",0);
 
 INSERT INTO building VALUES(1,"Yerwada",3);
 INSERT INTO building VALUES(2,"Magarpatta",3);
