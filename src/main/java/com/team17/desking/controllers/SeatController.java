@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.team17.desking.entity.Seat;
 import com.team17.desking.repository.SeatRepository;
@@ -15,7 +16,7 @@ public class SeatController {
 
 	@Autowired
 	private SeatRepository seatRepository;
-	 
+	@CrossOrigin()
 	@PutMapping("desking/seat/block/{seatId}")
 	public void blockSeat(@PathVariable Long seatId) {
 		try {

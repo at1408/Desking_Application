@@ -48,14 +48,14 @@ public class DeskingApplication {
                     public void run() {
                         System.out.println("Sending Email...");
                         SimpleMailMessage msg = new SimpleMailMessage();
-                        List<String> userEmails = bookrepo.getUserEmails();
-                        for (int i = 0; i < userEmails.size(); i++) {
-                            msg.setTo(userEmails.get(i));
+                        List<User> users = bookrepo.getUsers();
+                        for (int i = 0; i < users.size(); i++) {
+                            msg.setTo(users.get(i).getEmail());
                             msg.setFrom("project17team@gmail.com");
                             msg.setSubject("Reminder on Desk booking");
-                            msg.setText("Hi, \n We look forward to welcome you at your office tomorrow. \n best regards,\n Social Desking Team17");
+                            msg.setText("Hi "+users.get(i).getfName()+", \n We look forward to welcome you at your office tomorrow. \n best regards,\n Social Desking Team17");
                             try {
-                                javaMailSender.send(msg);
+                              javaMailSender.send(msg);
                             }
                             catch(Exception e){
                                 System.out.println("Wrong email address provided");

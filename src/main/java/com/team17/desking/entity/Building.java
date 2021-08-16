@@ -13,7 +13,7 @@ import javax.persistence.Id;
 public class Building {
 	@Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-	private int buildingId;
+	private long buildingId;
 	
 	@Column
 	private String buildingName;
@@ -32,11 +32,11 @@ public class Building {
 		this.noOfFloor = noOfFloor;
 	}
 
-	public int getBuildingId() {
+	public long getBuildingId() {
 		return buildingId;
 	}
 
-	public void setBuildingId(int buildingId) {
+	public void setBuildingId(long buildingId) {
 		this.buildingId = buildingId;
 	}
 

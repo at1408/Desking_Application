@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.team17.desking.entity.Building;
 import com.team17.desking.entity.Seat;
@@ -20,11 +21,13 @@ public class BuildingController {
     @Autowired
     private BuildingRepository repository;
 
+    @CrossOrigin()
     @GetMapping("desking/buildings")
     public List<Building> getBuildings() {
         return repository.findAll();
     }
 
+    @CrossOrigin()
     @PostMapping("desking/buildings/add")
     public Building addBuilding(@RequestBody Building building) {
         repository.save(building);

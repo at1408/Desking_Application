@@ -2,7 +2,7 @@ package com.team17.desking.entity;
 
 import javax.persistence.*;
 
-@Entity(name="Seat")
+@Entity(name="seat")
 public class Seat {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -12,7 +12,32 @@ public class Seat {
     @Column
     private int floorNo;
     @Column
-    private int buildingId;
+    private long buildingId;
+
+
+    public Seat(boolean blocked, boolean booked, int floorNo, long buildingId) {
+        this.blocked = blocked;
+        this.booked = booked;
+        this.floorNo = floorNo;
+        this.buildingId = buildingId;
+    }
+
+    public int getFloorNo() {
+        return floorNo;
+    }
+
+    public void setFloorNo(int floorNo) {
+        this.floorNo = floorNo;
+    }
+
+    public long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(long buildingId) {
+        this.buildingId = buildingId;
+    }
+
 
     
     public Seat() {
@@ -20,12 +45,7 @@ public class Seat {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Seat(boolean blocked, boolean booked, int floorNo, int buildingId) {
-        this.blocked = blocked;
-        this.booked = booked;
-        this.floorNo = floorNo;
-        this.buildingId = buildingId;
-    }
+
 
     public long getSeatId() {
         return seatId;
