@@ -37,7 +37,7 @@ public class DeskingApplication {
 
 
             //@Scheduled(cron = "0 18 * * * *")
-            @Scheduled(fixedDelay = 4320000)
+            @Scheduled(fixedDelay = 43200000)
             @Override
             public void run(String... args) throws Exception {
                 // TODO Auto-generated method stub
@@ -64,7 +64,7 @@ public class DeskingApplication {
                         System.out.println("Done");
                     }
                 };
-                timer.scheduleAtFixedRate(task, 0, 4320000);
+                timer.scheduleAtFixedRate(task, 0, 43200000);
 
 
             }

@@ -61,7 +61,10 @@ public class BookingController {
 	@CrossOrigin()
 	@DeleteMapping("/desking/booking/{bookingId}")
 	public void delete(@PathVariable Long bookingId) {
-	    bookrepo.deleteById(bookingId);
+		Booking booking = bookrepo.getById(bookingId);
+		Long seatId = booking.getSeatID();
+		seatrepo.makeSeatAvailable(seatId);
+		bookrepo.deleteById(bookingId);
 	}
 
 	@CrossOrigin()
@@ -112,6 +115,24 @@ public class BookingController {
 
 		return r;
 	}
+	
+	@CrossOrigin()
+        @GetMapping("/desking/seatsbooked/{date}")
+	public List<Seat> seatsBooked(@PathVariable String date){
+		
+		List<Seat> res = new ArrayList<>();
+		
+		List<Booking> bookings = bookrepo.findByDateOfBooking(date);
+		for(Booking b: bookings) {
+			res.add(seatrepo.findById(b.getSeatID()).orElse(null));
+		}
+		System.out.println(bookings);
+		
+		return res;
+		
+	}
+	
+	
 	
 
 }
