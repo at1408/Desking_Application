@@ -52,8 +52,8 @@ public class DeskingApplication {
                         for (int i = 0; i < users.size(); i++) {
                             msg.setTo(users.get(i).getEmail());
                             msg.setFrom("project17team@gmail.com");
-                            msg.setSubject("Reminder on Desk booking");
-                            msg.setText("Hi "+users.get(i).getfName()+", \n We look forward to welcome you at your office tomorrow. \n best regards,\n Social Desking Team17");
+                            msg.setSubject("Reminder on upcoming desk booking");
+                            msg.setText("Hi "+users.get(i).getfName()+", \n We look forward to welcome you at your office. \n best regards,\n Social Desking Team17");
                             try {
                               javaMailSender.send(msg);
                             }
